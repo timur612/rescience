@@ -1,0 +1,26 @@
+{
+  "name": "rescience-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^7.0.1",
+    "nodemon": "^2.0.9"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-promise-router": "^4.1.0",
+    "nodemailer": "^6.6.3",
+    "pg": "^8.6.0"
+  }
+}

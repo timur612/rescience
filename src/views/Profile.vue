@@ -29,6 +29,9 @@
                         <p>{{study}}</p>
                     </div>
                 </div>
+                <div class="btn mt-3" style="background-color:red;padding:1% 5% 1% 5%" v-on:click="exit">
+                    <p style="color:white;margin-bottom:0;">Выйти</p>
+                </div>
             </div>
         </div>
     </div>
@@ -50,6 +53,10 @@ export default {
         }
     },
     methods:{
+        exit(){
+            localStorage.clear()
+            this.$router.push('/')
+        },
         async getUser(){
             let id = localStorage.getItem('id')
             axios.get(`http://localhost:3000/users/${id}`)
@@ -62,6 +69,9 @@ export default {
         },
         gotToAdd(){
             this.$router.push('/addcard');
+        },
+        goToBack(){
+            this.$router.back();
         }
     },
     created(){

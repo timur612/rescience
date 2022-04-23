@@ -62,7 +62,7 @@
             
 
             <div class="row mt-3">
-                <div class="col-sm-4" style="margin-bottom:2%" v-for="(testcard,i) in cards" :key="i">
+                <div class="col-sm-4" style="margin-bottom:2%" v-for="(testcard,i) in pojCards" :key="i">
                     <div v-if="testcard.type==2" class="card position-relative" style="width: 22rem;">
                         <img src="@/assets/cardimg.png" class="card-img-top rounded" alt="...">
 
@@ -95,7 +95,7 @@
             
 
             <div class="row mt-3">
-                <div class="col-sm-4" style="margin-bottom:2%" v-for="(testcard,i) in cards" :key="i">
+                <div class="col-sm-4" style="margin-bottom:2%" v-for="(testcard,i) in partCards" :key="i">
                     <div v-if="testcard.type==3 && i<3" class="card position-relative" style="width: 22rem;">
                         <img src="@/assets/cardimg.png" class="card-img-top rounded" alt="...">
 
@@ -155,20 +155,27 @@ export default {
                  {heading:'“Связь характера и сферы деятельности”',text:'Мы предполагаем, что люди выбирают любимою профессию, исходя из заложенных качеств характера ну и лорем ипсум другой надо посмртреть как там по преппп...'},
                   {heading:'“Связь характера и сферы деятельности”',text:'Мы предполагаем, что люди выбирают любимою профессию, исходя из заложенных качеств характера ну и лорем ипсум другой надо посмртреть как там по преппп...'},
             ],
-            cards: []
+            cards: [],
+            partCards:[],
+            pojCards:[],
         }
     },
     methods:{
         async getCards(){
             await axios.get('http://localhost:3000/posts')
                         .then(res=>{
-                            // let cs = res.data;
-                            // for(let i=0;i<cs.length;i++){
-                            //     if(i<3){
-                            //         this.cards.push(cs[i])
-                            //     }
-                            // }
-                            this.cards = res.data
+                            for(let i=0;i<res.data.length;i++){
+                                if(res.data[i].type==1){
+                                    this.cards.push(res.data[i])
+                                }
+                                if(res.data[i].type==2){
+                                    this.pojCards.push(res.data[i])
+                                }
+                                if(res.data[i].type==3){
+                                    this.partCards.push(res.data[i])
+                                }
+
+                            }
                             
                         })
                         .catch(err=>{

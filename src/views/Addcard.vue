@@ -32,10 +32,14 @@
                     <div v-if="isActiveDesc">
                         <div class="row">
                             <div class="col-sm">
-                                <p class="h6">Добавить тестирование</p>
+                                <p v-if="type==1" class="h6">Добавить тестирование</p>
+                                <p v-if="type==2" class="h6">Добавить сбор средств</p>
+                                <p v-if="type==3" class="h6">Добавить участие</p>
 
                                 <div class="btn mt-3" style="background-color:#0084FF;padding:1% 5% 1% 5%" >
-                                    <p style="color:white;margin-bottom:0;display:inline-block;">Тестирование</p>
+                                    <p v-if="type==1" style="color:white;margin-bottom:0;display:inline-block;">Тестирование</p>
+                                    <p v-if="type==2" style="color:white;margin-bottom:0;display:inline-block;">Сбор средств</p>
+                                    <p v-if="type==3" style="color:white;margin-bottom:0;display:inline-block;">Участие</p>
                                 </div>
 
                                 <p class="h6 mt-4">Категория</p>
@@ -54,7 +58,7 @@
                                     <input v-model="heading" type="text" style="background-color:white; border:none; margin-top:5%" id="loginemail" class="form-control" placeholder="Напишите заголовок">
                                 </div>
                                 
-                                <p class="h6 mt-4">Сколько необходимо протестировать</p>
+                                <p class="h6 mt-4">Сколько необходимо времени</p>
 
                                 <div style="width:5rem">
                                     <input type="number" style="background-color:white; border:none; margin-top:5%" id="loginemail" class="form-control" placeholder="...">
@@ -82,8 +86,12 @@
                             </div>
                         </div>
 
-                        <div class="btn mt-3" style="background-color:#0084FF;padding:1% 5% 1% 5%" v-on:click="()=>isActive(3)">
+                        <div v-if="type==1" class="btn mt-3" style="background-color:#0084FF;padding:1% 5% 1% 5%" v-on:click="()=>isActive(3)">
                             <p style="color:white;margin-bottom:0;display:inline-block;">Перейти к составлению вопросов</p>
+                        </div>
+
+                        <div v-if="type==2 || type==3" class="btn mt-3" style="background-color:#0084FF;padding:1% 5% 1% 5%" v-on:click="()=>addOther()">
+                            <p style="color:white;margin-bottom:0;">Опубликовать</p>
                         </div>
                         
                     </div>
@@ -157,6 +165,10 @@ export default {
     methods:{
         goToBack(){
             this.$router.back();
+        },
+        addOther(){
+            this.addtoServer();
+            this.$router.push('/')
         },
         async addtoServer(){
             const body = JSON.stringify({
